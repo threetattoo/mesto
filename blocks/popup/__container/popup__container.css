@@ -1,4 +1,4 @@
-.popup__wrapper {
+.popup__container {
     position: fixed;
     top: 195px;
     width: 430px;
@@ -8,7 +8,7 @@
 }
 
 @media screen and (max-width: 540px) {
-    .popup__wrapper {
+    .popup__container {
         top: 123px;
         width: 282px;
         height: 322px;
