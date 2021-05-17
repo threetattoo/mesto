@@ -1,11 +1,10 @@
 .elements__like-button {
+    margin: 30px 20px 30px auto;
     width: 22px;
     height: 19px;
     border: 0;
     background-image: url(../../../images/heart.svg);
     background-color: #ffffff;
     cursor: pointer;
-    position: absolute;
-    bottom: 32px;
-    left: 240px;
+    grid-area: likebutton;
 }

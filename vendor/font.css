@@ -8,8 +8,8 @@
 @font-face {
     font-family: 'Inter';
     font-style: normal;
-    font-weight: 700;
-    src: url(../fonts/Inter-Bold.woff2), url(../fonts/Inter-Bold.woff), url(../fonts/Inter-Bold.ttf), url(../fonts/Inter-Bold.otf);
+    font-weight: 500;
+    src: url(../fonts/Inter-Medium.woff2), url(../fonts//Inter-Medium.woff), url(../fonts/Inter-Medium.ttf), url(../fonts/Inter-Medium.otf);
 }
 
 @font-face {
