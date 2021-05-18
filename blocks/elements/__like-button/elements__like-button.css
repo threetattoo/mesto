@@ -5,6 +5,11 @@
     border: 0;
     background-image: url(../../../images/heart.svg);
     background-color: #ffffff;
+    transition: opacity 0.4s linear;
     cursor: pointer;
     grid-area: likebutton;
+}
+
+.elements__like-button:hover {
+    opacity: 0.5;
 }

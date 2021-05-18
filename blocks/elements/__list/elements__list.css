@@ -18,6 +18,5 @@
 @media screen and (max-width: 620px) {
     .elements__list {
         width: 282px;
-        margin: auto;
     }
 }

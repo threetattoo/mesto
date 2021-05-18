@@ -15,9 +15,7 @@
     </header>
     <main>
         <section class="profile">
-            <figure class="profile__figure">
-                <img src="./images/image.jpg" alt="Аватар пользователя" class="profile__avatar">
-            </figure>
+            <img src="./images/image.jpg" alt="Аватар пользователя" class="profile__avatar">
             <div class="profile__info">
                 <h1 class="profile__name">Жак-Ив Кусто</h1>
                 <button type="button" class="profile__edit-button" aria-label="Редактировать профиль"></button>
@@ -28,46 +26,34 @@
         <section class="elements">
             <ul class="elements__list">
                 <li class="elements__item">
-                    <figure class="elements__figure">
-                        <img src="./images/photo-1489619243109-4e0ea59cfe10.jpeg" alt="Седония, США" class="elements__image">
-                        <figcaption class="elements__figcaption">Седония, США</figcaption>
-                        <button type="button" class="elements__like-button" aria-label="Поставить лайк"></button>
-                    </figure>
+                    <img src="./images/photo-1489619243109-4e0ea59cfe10.jpeg" alt="Седония, США" class="elements__image">
+                    <h2 class="elements__title">Седония, США</h2>
+                    <button type="button" class="elements__like-button" aria-label="Поставить лайк"></button>
                 </li>
                 <li class="elements__item">
-                    <figure class="elements__figure">
-                        <img src="./images/photo-1601274940946-7bfb536ce78a.jpeg" alt="Пустыня, Намибия" class="elements__image">
-                        <figcaption class="elements__figcaption">Пустыня, Намибия</figcaption>
-                        <button type="button" class="elements__like-button" aria-label="Поставить лайк"></button>
-                    </figure>
+                    <img src="./images/photo-1601274940946-7bfb536ce78a.jpeg" alt="Пустыня, Намибия" class="elements__image">
+                    <h2 class="elements__title">Пустыня, Намибия</h2>
+                    <button type="button" class="elements__like-button" aria-label="Поставить лайк"></button>
                 </li>
                 <li class="elements__item">
-                    <figure class="elements__figure">
-                        <img src="./images/photo-1615801626607-0bfd985f5ae9.jpeg" alt="Патагония, Чили" class="elements__image">
-                        <figcaption class="elements__figcaption">Патагония, Чили</figcaption>
-                        <button type="button" class="elements__like-button" aria-label="Поставить лайк"></button>
-                    </figure>
+                    <img src="./images/photo-1615801626607-0bfd985f5ae9.jpeg" alt="Патагония, Чили" class="elements__image">
+                    <h2 class="elements__title">Патагония, Чили</h2>
+                    <button type="button" class="elements__like-button" aria-label="Поставить лайк"></button>
                 </li>
                 <li class="elements__item">
-                    <figure class="elements__figure">
-                        <img src="./images/photo-1620293838958-94e36e3b89ca.jpeg" alt="Керала, Индия" class="elements__image">
-                        <figcaption class="elements__figcaption">Керала, Индия</figcaption>
-                        <button type="button" class="elements__like-button" aria-label="Поставить лайк"></button>
-                    </figure>
+                    <img src="./images/photo-1620293838958-94e36e3b89ca.jpeg" alt="Керала, Индия" class="elements__image">
+                    <h2 class="elements__title">Керала, Индия</h2>
+                    <button type="button" class="elements__like-button" aria-label="Поставить лайк"></button>
                 </li>
                 <li class="elements__item">
-                    <figure class="elements__figure">
-                        <img src="./images/photo-1476990789491-712b869b91a5.jpeg" alt="Скае, Великобритания" class="elements__image">
-                        <figcaption class="elements__figcaption">Скае, Великобритания</figcaption>
-                        <button type="button" class="elements__like-button" aria-label="Поставить лайк"></button>
-                    </figure>
+                    <img src="./images/photo-1476990789491-712b869b91a5.jpeg" alt="Скае, Великобритания" class="elements__image">
+                    <h2 class="elements__title">Скае, Великобритания</h2>
+                    <button type="button" class="elements__like-button" aria-label="Поставить лайк"></button>
                 </li>
                 <li class="elements__item">
-                    <figure class="elements__figure">
-                        <img src="./images/photo-1614093960472-27392f7b2f71.jpeg" alt="Лавертеццо, Швейцария" class="elements__image">
-                        <figcaption class="elements__figcaption">Лавертеццо, Швейцария</figcaption>
-                        <button type="button" class="elements__like-button" aria-label="Поставить лайк"></button>
-                    </figure>
+                    <img src="./images/photo-1614093960472-27392f7b2f71.jpeg" alt="Лавертеццо, Швейцария" class="elements__image">
+                    <h2 class="elements__title">Лавертеццо, Швейцария</h2>
+                    <button type="button" class="elements__like-button" aria-label="Поставить лайк"></button>
                 </li>
             </ul>
         </section>
@@ -79,12 +65,12 @@
     </footer>
     <section class="popup">
         <div class="popup__container">
-            <form class="popup__form">
-                <h2 class="popup__form-title">Редактировать профиль</h2>
+            <form class="popup__form" name="edit-profile">
+                <h3 class="popup__form-title">Редактировать профиль</h3>
                 <fieldset class="popup__form-fieldset">
                     <input type="text" class="popup__form-input" placeholder="Имя" name="personname" id="personname" value="">
                     <input type="text" class="popup__form-input" placeholder="Профессия" name="personjob" id="personjob" value="">
-                    <button class="popup__save-button" aria-label="Сохранить информацию">Сохранить</button>
+                    <button type="submit" class="popup__save-button" aria-label="Сохранить информацию">Сохранить</button>
                 </fieldset>
             </form>
             <button type="button" class="popup__close-button" aria-label="Закрыть попап"></button>

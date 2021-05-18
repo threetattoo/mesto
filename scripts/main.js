@@ -1,26 +1,14 @@
 let popup = document.querySelector('.popup');
 let openPopup = document.querySelector('.profile__edit-button');
 let closePopup = document.querySelector('.popup__close-button');
+let saveButton = document.querySelector('.popup__save-button');
 
-openPopup.addEventListener('click', togglePopupClass);
+openPopup.addEventListener('click', openPopupAction);
 
-closePopup.addEventListener('click', togglePopupClass);
+closePopup.addEventListener('click', closePopupAction);
 
-function togglePopupClass() {
-    popup.classList.toggle('popup_opened')
-}
+saveButton.addEventListener('click', formSubmitHandler);
 
-const likeButtons = document.querySelectorAll('.elements__like-button');
-
-for (let i = 0; i < likeButtons.length; i++) {
-    likeButtons[i].addEventListener('click', function() {
-        if (likeButtons[i].classList.contains('elements__like-button_active')) {
-            likeButtons[i].classList.remove('elements__like-button_active');
-        } else {
-            likeButtons[i].classList.add('elements__like-button_active');
-        }
-    });
-}
 
 //получаем имя и профессию пользователя из dom
 let profileName = document.querySelector('.profile__name');
@@ -29,12 +17,18 @@ let profileJob = document.querySelector('.profile__subtitle');
 let formElement = document.querySelector('.popup__form');
 let nameInput = formElement.querySelector('#personname');
 let jobInput = formElement.querySelector('#personjob');
-//присваиваем атрибутам value элементов input значения имя и профессии, полученные из dom
-nameInput.value = profileName.textContent;
-jobInput.value = profileJob.textContent;
 
-// Обработчик «отправки» формы, хотя пока
-// она никуда отправляться не будет
+function openPopupAction() {
+    //присваиваем атрибутам value элементов input значения имя и профессии, полученные из dom
+    nameInput.value = profileName.textContent;
+    jobInput.value = profileJob.textContent;
+    popup.classList.toggle('popup_opened');
+}
+
+function closePopupAction() {
+    popup.classList.toggle('popup_opened');
+}
+
 function formSubmitHandler(evt) {
     evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
     // Так мы можем определить свою логику отправки.

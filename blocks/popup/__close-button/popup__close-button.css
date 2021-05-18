@@ -7,7 +7,7 @@
     right: -40px;
     background-image: url(../../../images/Close-Icon.svg);
     background-position: 50%;
-    background-color: #000000;
+    background-color: transparent;
     cursor: pointer;
     transition: opacity 0.4s linear;
 }
@@ -20,7 +20,6 @@
     .popup__close-button {
         width: 26px;
         height: 26px;
-        top: -40px;
         right: 0;
     }
 }

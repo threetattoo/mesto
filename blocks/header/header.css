@@ -1,15 +1,7 @@
 .header {
     max-width: 880px;
-    height: 74px;
-    margin: 45px auto 0px;
+    margin: auto;
     display: flex;
     align-items: flex-start;
     border-bottom: 1px solid rgba(84, 84, 84, .7);
-}
-
-@media screen and (max-width: 320px) {
-    .header {
-        height: 56px;
-        margin: 28px 0 42px;
-    }
 }

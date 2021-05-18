@@ -5,14 +5,14 @@
     align-items: center;
 }
 
-@media screen and (max-width: 880px) {
+@media screen and (max-width: 900px) {
     .profile {
         width: calc(100% - 54px);
         margin: 40px auto 51px;
     }
 }
 
-@media screen and (max-width: 720px) {
+@media screen and (max-width: 768px) {
     .profile {
         flex-direction: column;
     }
