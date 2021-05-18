@@ -1,14 +1,10 @@
 let popup = document.querySelector('.popup');
 let openPopup = document.querySelector('.profile__edit-button');
 let closePopup = document.querySelector('.popup__close-button');
-let saveButton = document.querySelector('.popup__save-button');
 
 openPopup.addEventListener('click', openPopupAction);
 
 closePopup.addEventListener('click', closePopupAction);
-
-saveButton.addEventListener('click', formSubmitHandler);
-
 
 //получаем имя и профессию пользователя из dom
 let profileName = document.querySelector('.profile__name');
