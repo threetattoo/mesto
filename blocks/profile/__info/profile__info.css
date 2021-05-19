@@ -15,9 +15,11 @@
     }
 }
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 520px) {
     .profile__info {
-        row-gap: 14px;
-        column-gap: 15.25px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: baseline;
     }
 }

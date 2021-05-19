@@ -36,6 +36,5 @@ function formSubmitHandler(evt) {
     profileName.textContent = nameInput.value;
     profileJob.textContent = jobInput.value;
     // Вставьте новые значения с помощью textContent
-    popup.classList.remove('popup_opened');
-
+    closePopupAction();
 }
