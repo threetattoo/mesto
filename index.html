@@ -33,47 +33,48 @@
             &copy; 2020 Mesto Russia
         </p>
     </footer>
-    <section class="popup popup_profile">
+    <section class="popup popup_type_profile">
         <div class="popup__container">
-            <form class="popup__form popup__form-profile" name="edit-profile">
+            <form class="popup__form popup__form_profile" name="edit-profile">
                 <h2 class="popup__form-title">Редактировать профиль</h2>
                 <fieldset class="popup__form-fieldset">
-                    <input type="text" class="popup__form-input" placeholder="Имя" name="personname" id="personname" value="">
-                    <input type="text" class="popup__form-input" placeholder="Профессия" name="personjob" id="personjob" value="">
+                    <input type="text" required class="popup__form-input" placeholder="Имя" name="personname" id="personname" value="">
+                    <input type="text" required class="popup__form-input" placeholder="Профессия" name="personjob" id="personjob" value="">
                     <button type="submit" class="popup__save-button" aria-label="Сохранить информацию">Сохранить</button>
                 </fieldset>
             </form>
             <button type="button" class="popup__close-button" aria-label="Закрыть попап"></button>
         </div>
     </section>
-    <section class="popup popup_add-content">
+    <section class="popup popup_type_add-content">
         <div class="popup__container">
-            <form class="popup__form popup__form-place" name="edit-profile">
+            <form class="popup__form popup__form_place" name="add-picture">
                 <h2 class="popup__form-title">Новое место</h2>
                 <fieldset class="popup__form-fieldset">
-                    <input type="text" class="popup__form-input" placeholder="Название" name="placename" id="placename" value="">
-                    <input type="text" class="popup__form-input" placeholder="Ссылка на картинку" name="picturelink" id="picturelink" value="">
+                    <input type="text" required class="popup__form-input" placeholder="Название" name="placename" id="placename" value="">
+                    <input type="url" required class="popup__form-input" placeholder="Ссылка на картинку" name="picturelink" id="picturelink" value="">
                     <button type="submit" class="popup__save-button" aria-label="Сохранить информацию">Создать</button>
                 </fieldset>
             </form>
             <button type="button" class="popup__close-button" aria-label="Закрыть попап"></button>
         </div>
     </section>
-    <section class="popup popup_view-image">
+    <section class="popup popup_type_view-image">
         <div class="popup__container popup__container_image">
-            <img class="popup__image">
+            <img class="popup__image" src="#" alt="#">
             <p class="popup__image-caption"></p>
             <button type="button" class="popup__close-button" aria-label="Закрыть попап"></button>
         </div>
     </section>
     <template id="gallery-item">
         <li class="elements__item">
-            <img class="elements__image">
+            <img class="elements__image" src="#" alt="#">
             <h2 class="elements__title"></h2>
             <button type="button" class="elements__like-button" aria-label="Поставить лайк"></button>
             <button type="button" class="elements__delete-button" aria-label="Удалить фотографию"></button>
         </li>
     </template>
+    <script src="scripts/initial-сards.js"></script>
     <script src="scripts/main.js"></script>
 </body>
 

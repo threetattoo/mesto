@@ -1,94 +1,89 @@
-const initialCards = [{
-        name: 'Архыз',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-        name: 'Челябинская область',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-        name: 'Иваново',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-        name: 'Камчатка',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-        name: 'Холмогорский район',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-        name: 'Байкал',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-];
-
 //попап редактирования профиля пользователя
-const popupProfile = document.querySelector('.popup_profile');
+const popupProfile = document.querySelector('.popup_type_profile');
 const editProfileButton = document.querySelector('.profile__edit-button');
 const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector('.profile__subtitle');
-const editProfileForm = document.querySelector('.popup__form-profile');
+const editProfileForm = document.querySelector('.popup__form_profile');
 const nameInput = editProfileForm.querySelector('#personname');
 const jobInput = editProfileForm.querySelector('#personjob');
+//попап добавления фотографий
+const popupAddContent = document.querySelector('.popup_type_add-content');
+const pictureAddButton = document.querySelector('.profile__add-button');
+const pictureAddForm = document.querySelector('.popup__form_place');
+//попап просмотра фотографии
+const popupViewImage = document.querySelector('.popup_type_view-image');
+const popupImage = document.querySelector('.popup__image');
+const popupImageCaption = document.querySelector('.popup__image-caption');
+//галерея и темплейт ее элемента
+const galleryList = document.querySelector('.elements__list');
+const galleryItemTemplate = document.querySelector('#gallery-item').content;
 
-editProfileButton.addEventListener('click', openProfilePopup);
-editProfileForm.addEventListener('submit', handleSubmitProfile);
+const popups = document.querySelectorAll('.popup');
+const closePopupButtons = document.querySelectorAll('.popup__close-button');
+
+function togglePopupClass(popup) {
+    popup.classList.toggle('popup_opened');
+}
 
 function openProfilePopup() {
     nameInput.value = profileName.textContent;
     jobInput.value = profileJob.textContent;
-    popupProfile.classList.toggle('popup_opened');
+    togglePopupClass(popupProfile);
 }
 
 function handleSubmitProfile(evt) {
     evt.preventDefault();
     profileName.textContent = nameInput.value;
     profileJob.textContent = jobInput.value;
-    evt.target.closest('.popup').classList.toggle('popup_opened');
+    togglePopupClass(popupProfile);
 }
-
-//попап добавления фотографий
-const pictureAddButton = document.querySelector('.profile__add-button');
-const popupAddContent = document.querySelector('.popup_add-content');
-
-pictureAddButton.addEventListener('click', function() {
-    popupAddContent.classList.toggle('popup_opened');
-});
 
 function addPictureHandler(evt) {
     evt.preventDefault();
     const addPictureCaption = popupAddContent.querySelector('#placename');
     const addPictureUrl = popupAddContent.querySelector('#picturelink');
-    let item = { name: addPictureCaption.value, link: addPictureUrl.value };
-    renderItem(item);
-    addPictureCaption.value = "";
-    addPictureUrl.value = "";
-    popupAddContent.classList.toggle('popup_opened');
+    const item = { name: addPictureCaption.value, link: addPictureUrl.value };
+    createCard(item);
+    pictureAddForm.reset();
+    togglePopupClass(popupAddContent);
 };
 
-const popupFormPlace = document.querySelector('.popup__form-place');
-popupFormPlace.addEventListener('submit', addPictureHandler);
+function renderItem(item) {
+    const galleryItem = galleryItemTemplate.querySelector('.elements__item').cloneNode(true);
+    const deleteButton = galleryItem.querySelector('.elements__delete-button');
+    const likeButton = galleryItem.querySelector('.elements__like-button');
+    const itemImage = galleryItem.querySelector('.elements__image');
+    const itemTitle = galleryItem.querySelector('.elements__title');
+    itemImage.src = item.link;
+    itemImage.alt = item.name;
+    itemTitle.textContent = item.name;
+    deleteButton.addEventListener('click', handleDelete);
+    likeButton.addEventListener('click', handleLike);
+    itemImage.addEventListener('click', handleImageClick);
+    return galleryItem;
+}
+
+function createCard(item) {
+    galleryList.prepend(renderItem(item));
+}
 
 // обработка закрытия попапов при клике по кнопке
-const closePopupButtons = document.querySelectorAll('.popup__close-button');
 closePopupButtons.forEach((button) => {
     button.addEventListener('click', function() {
-        button.closest('.popup').classList.toggle('popup_opened');
+        const closestPopup = button.closest('.popup');
+        togglePopupClass(closestPopup);
     });
 })
 
 // обработка закрытия попапов при клике по площади вне контента попапа
-const popups = document.querySelectorAll('.popup');
 popups.forEach((popup) => {
     popup.addEventListener('click', function(evt) {
         if (evt.target === evt.currentTarget) {
-            evt.target.closest('.popup').classList.toggle('popup_opened');
+            const closestPopup = evt.target.closest('.popup');
+            togglePopupClass(closestPopup);
         }
     });
 })
-
 
 // обработка нажатия кнопок удаления, лайка
 // и просмотра полноразмерного фото в галерее
@@ -101,28 +96,17 @@ function handleLike(evt) {
 }
 
 function handleImageClick(evt) {
-    const popupViewImage = document.querySelector('.popup_view-image');
-    const popupImage = document.querySelector('.popup__image');
-    const popupImageCaption = document.querySelector('.popup__image-caption');
-    popupImage.src = evt.target.src;
-    popupImageCaption.textContent = evt.target.nextElementSibling.textContent;
-    popupViewImage.classList.toggle('popup_opened');
+    closestGalleryItem = evt.target.closest('.elements__item');
+    popupImage.src = closestGalleryItem.querySelector('.elements__image').src;
+    popupImage.alt = closestGalleryItem.querySelector('.elements__title').textContent;
+    popupImageCaption.textContent = closestGalleryItem.querySelector('.elements__title').textContent;
+    togglePopupClass(popupViewImage);
 }
 
-//добавление фото в галерею
-function renderItem(item) {
-    const galleryList = document.querySelector('.elements__list');
-    const galleryItemTemplate = document.querySelector('#gallery-item').content;
-    const galleryItem = galleryItemTemplate.querySelector('.elements__item').cloneNode(true);
-    galleryItem.querySelector('.elements__image').src = item.link;
-    galleryItem.querySelector('.elements__title').textContent = item.name;
-    galleryList.append(galleryItem);
-    const deleteButton = galleryItem.querySelector('.elements__delete-button');
-    const likeButton = galleryItem.querySelector('.elements__like-button');
-    deleteButton.addEventListener('click', handleDelete);
-    likeButton.addEventListener('click', handleLike);
-    const itemImage = galleryItem.querySelector('.elements__image');
-    itemImage.addEventListener('click', handleImageClick);
-}
-
-initialCards.forEach(item => renderItem(item));
+initialCards.forEach(item => createCard(item));
+editProfileButton.addEventListener('click', openProfilePopup);
+editProfileForm.addEventListener('submit', handleSubmitProfile);
+pictureAddForm.addEventListener('submit', addPictureHandler);
+pictureAddButton.addEventListener('click', function() {
+    togglePopupClass(popupAddContent);
+});
