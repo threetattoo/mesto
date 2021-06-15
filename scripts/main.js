@@ -10,6 +10,7 @@ const jobInput = editProfileForm.querySelector('#personjob');
 const popupAddContent = document.querySelector('.popup_type_add-content');
 const pictureAddButton = document.querySelector('.profile__add-button');
 const pictureAddForm = document.querySelector('.popup__form_place');
+const addPictureForm = document.querySelector('.popup__form_place');
 //попап просмотра фотографии
 const popupViewImage = document.querySelector('.popup_type_view-image');
 const popupImage = document.querySelector('.popup__image');
@@ -75,15 +76,33 @@ closePopupButtons.forEach((button) => {
     });
 })
 
-// обработка закрытия попапов при клике по площади вне контента попапа
-popups.forEach((popup) => {
-    popup.addEventListener('click', function(evt) {
-        if (evt.target === evt.currentTarget) {
-            const closestPopup = evt.target.closest('.popup');
-            togglePopupClass(closestPopup);
+// обработка закрытия попапов при клике по оверлею
+function handleOverlayClick(event) {
+    if (event.target === event.currentTarget) {
+        const closestPopup = event.target.closest('.popup');
+        togglePopupClass(closestPopup);
+    }
+}
+
+//закрытие попапа при нажатии кнопки escape
+function handleEscapeClose(event) {
+    if (event.key === 'Escape') {
+        const openedPopup = document.querySelector('.popup_opened');
+        if (openedPopup) {
+            togglePopupClass(openedPopup);
         }
-    });
-})
+    }
+}
+
+//добавление карточки при нажатии клавиши enter
+//в одном из инпутов формы
+function addCardWithEnter(event) {
+    const addPictureForm = event.currentTarget;
+    const isValid = addPictureForm.checkValidity();
+    if (event.key === 'Enter' && isValid) {
+        addPictureForm.submit();
+    }
+}
 
 // обработка нажатия кнопок удаления, лайка
 // и просмотра полноразмерного фото в галерее
@@ -110,3 +129,8 @@ pictureAddForm.addEventListener('submit', addPictureHandler);
 pictureAddButton.addEventListener('click', function() {
     togglePopupClass(popupAddContent);
 });
+popups.forEach((popup) => {
+    popup.addEventListener('click', handleOverlayClick);
+})
+document.addEventListener('keyup', handleEscapeClose);
+addPictureForm.addEventListener('input', (event) => addCardWithEnter(event));

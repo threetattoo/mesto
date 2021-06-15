@@ -1,7 +1,6 @@
-.popup__form-input {
+.popup__input {
     width: 100%;
-    margin-bottom: 17px;
-    padding: 13px 0px;
+    padding: 0 0 13px;
     border: none;
     border-bottom: 1px solid rgba(0, 0, 0, .2);
     font-size: 14px;
