@@ -26,7 +26,7 @@ function toggleSubmitButtonClass(form, config) {
     const isFormValid = form.checkValidity();
     if (isFormValid) {
         submitButton.classList.remove(config.inactiveButtonClass);
-        submitButton.removeAttribute('disabled', 'disabled');
+        submitButton.removeAttribute('disabled');
     } else {
         submitButton.classList.add(config.inactiveButtonClass);
         submitButton.setAttribute('disabled', 'disabled');
