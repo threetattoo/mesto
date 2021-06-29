@@ -1,3 +1,38 @@
+const initialCards = [{
+        name: 'Архыз',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+    },
+    {
+        name: 'Челябинская область',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+    },
+    {
+        name: 'Иваново',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+    },
+    {
+        name: 'Камчатка',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+    },
+    {
+        name: 'Холмогорский район',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+    },
+    {
+        name: 'Байкал',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+    }
+];
+
+const popupFormConfig = {
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__button',
+    inactiveButtonClass: 'popup__button_disabled',
+    inputErrorClass: 'popup__input_type_error',
+    errorClass: 'popup__error_visible'
+};
+
 //попап редактирования профиля пользователя
 const popupProfile = document.querySelector('.popup_type_profile');
 const editProfileButton = document.querySelector('.profile__edit-button');
@@ -10,21 +45,18 @@ const jobInput = editProfileForm.querySelector('#personjob');
 const popupAddContent = document.querySelector('.popup_type_add-content');
 const pictureAddButton = document.querySelector('.profile__add-button');
 const pictureAddForm = document.querySelector('.popup__form_place');
-//попап просмотра фотографии
-const popupViewImage = document.querySelector('.popup_type_view-image');
-const popupImage = document.querySelector('.popup__image');
-const popupImageCaption = document.querySelector('.popup__image-caption');
-//галерея и темплейт ее элемента
+//галерея
 const galleryList = document.querySelector('.elements__list');
-const galleryItemTemplate = document.querySelector('#gallery-item').content;
 
 const popups = document.querySelectorAll('.popup');
 const closePopupButtons = document.querySelectorAll('.popup__close-button');
+
 
 function openPopup(popup) {
     popup.classList.toggle('popup_opened');
     document.addEventListener('keyup', handleEscapeClose);
 }
+
 
 function closePopup(popup) {
     popup.classList.toggle('popup_opened');
@@ -49,29 +81,11 @@ function addPictureHandler(evt) {
     const addPictureCaption = popupAddContent.querySelector('#placename');
     const addPictureUrl = popupAddContent.querySelector('#picturelink');
     const item = { name: addPictureCaption.value, link: addPictureUrl.value };
-    renderItem(item);
+    const card = new Card(item, '#gallery-item');
+    addCard(card.renderItem());
     pictureAddForm.reset();
     closePopup(popupAddContent);
 };
-
-function createCard(item) {
-    const galleryItem = galleryItemTemplate.querySelector('.elements__item').cloneNode(true);
-    const deleteButton = galleryItem.querySelector('.elements__delete-button');
-    const likeButton = galleryItem.querySelector('.elements__like-button');
-    const itemImage = galleryItem.querySelector('.elements__image');
-    const itemTitle = galleryItem.querySelector('.elements__title');
-    itemImage.src = item.link;
-    itemImage.alt = item.name;
-    itemTitle.textContent = item.name;
-    deleteButton.addEventListener('click', handleDelete);
-    likeButton.addEventListener('click', handleLike);
-    itemImage.addEventListener('click', handleImageClick);
-    return galleryItem;
-}
-
-function renderItem(item) {
-    galleryList.prepend(createCard(item));
-}
 
 // обработка закрытия попапов при клике по кнопке
 closePopupButtons.forEach((button) => {
@@ -99,31 +113,34 @@ function handleEscapeClose(event) {
     }
 }
 
-// обработка нажатия кнопок удаления, лайка
-// и просмотра полноразмерного фото в галерее
-function handleDelete(evt) {
-    evt.target.closest('.elements__item').remove();
+//добавление карточки в DOM
+function addCard(galleryItem) {
+    galleryList.prepend(galleryItem);
 }
 
-function handleLike(evt) {
-    evt.target.classList.toggle('elements__like-button_active');
-}
+//добавляем карточки из initialCards
+initialCards.forEach((item) => {
+    const card = new Card(item, '#gallery-item');
+    addCard(card.renderItem());
+});
 
-function handleImageClick(evt) {
-    const closestGalleryItem = evt.target.closest('.elements__item');
-    popupImage.src = closestGalleryItem.querySelector('.elements__image').src;
-    popupImage.alt = closestGalleryItem.querySelector('.elements__title').textContent;
-    popupImageCaption.textContent = closestGalleryItem.querySelector('.elements__title').textContent;
-    openPopup(popupViewImage);
-}
-
-initialCards.forEach(item => renderItem(item));
 editProfileButton.addEventListener('click', openProfilePopup);
 editProfileForm.addEventListener('submit', handleSubmitProfile);
 pictureAddForm.addEventListener('submit', addPictureHandler);
 pictureAddButton.addEventListener('click', function() {
     openPopup(popupAddContent);
 });
+
 popups.forEach((popup) => {
     popup.addEventListener('click', handleOverlayClick);
 })
+
+//валидация форм попапов
+const popupProfileValidator = new FormValidator(popupFormConfig, popupProfile);
+const popupAddContentValidator = new FormValidator(popupFormConfig, popupAddContent);
+
+popupProfileValidator.enableValidation();
+popupAddContentValidator.enableValidation();
+
+import { Card } from './Card.js';
+import { FormValidator } from './FormValidator.js';
