@@ -42,21 +42,10 @@ export class Card {
         const popupViewImage = document.querySelector('.popup_type_view-image');
         const popupImage = document.querySelector('.popup__image');
         const popupImageCaption = document.querySelector('.popup__image-caption');
-        popupImage.src = this._galleryItem.querySelector('.elements__image').src;
-        popupImage.alt = this._galleryItem.querySelector('.elements__title').textContent;
-        popupImageCaption.textContent = this._galleryItem.querySelector('.elements__title').textContent;
-        popupViewImage.classList.toggle('popup_opened');
-        document.addEventListener('keyup', this._handleEscapeClose);
-    }
-
-    _handleEscapeClose(event) {
-        if (event.key === 'Escape') {
-            const openedPopup = document.querySelector('.popup_opened');
-            if (openedPopup) {
-                openedPopup.classList.toggle('popup_opened');
-                document.removeEventListener('keyup', this._handleEscapeClose);
-            }
-        }
+        popupImage.src = this._link;
+        popupImage.alt = this._name;
+        popupImageCaption.textContent = this._name;
+        openPopup(popupViewImage);
     }
 
     //создаем, заполняем контентом и возвращаем карточку
@@ -66,8 +55,11 @@ export class Card {
         this._galleryItem = this._createCard();
         this._setEventListeners();
         this._galleryItem.querySelector('.elements__image').src = this._link;
+        this._galleryItem.querySelector('.elements__image').alt = this._name;
         this._galleryItem.querySelector('.elements__title').textContent = this._name;
 
         return this._galleryItem;
     }
 }
+
+import { openPopup } from './index.js';

@@ -11,6 +11,15 @@ export class FormValidator {
         this._form = currentPopup.querySelector(config.formSelector);
     }
 
+    //проходим по всем инпутам и сбрасываем ошибки
+    _hideAllInputErrors() {
+        const inputs = Array.from(this._form.querySelectorAll(this._inputSelector));
+        inputs.forEach((input) => {
+            this._hideInputError(input);
+            this._toggleSubmitButtonClass();
+        });
+    }
+
     _handleFormInput(event) {
         const input = event.target;
         this._checkInputValidity(input);
@@ -39,7 +48,6 @@ export class FormValidator {
 
     _showInputError(input, inputErrorMessage) {
         const showErrorElement = this._form.querySelector(`.${input.id}-error`);
-        console.log(showErrorElement);
         input.classList.add(this._inputErrorClass);
         showErrorElement.classList.add(this._errorClass);
         showErrorElement.textContent = inputErrorMessage;
@@ -53,7 +61,6 @@ export class FormValidator {
     }
 
     enableValidation() {
-        this._toggleSubmitButtonClass();
         this._form.addEventListener('input', (event) => this._handleFormInput(event));
     }
 }
