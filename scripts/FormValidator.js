@@ -40,9 +40,11 @@ export class FormValidator {
         if (isFormValid) {
             submitButton.classList.remove(this._inactiveButtonClass);
             submitButton.removeAttribute('disabled');
+            console.log('Form is valid');
         } else {
             submitButton.classList.add(this._inactiveButtonClass);
             submitButton.setAttribute('disabled', 'disabled');
+            console.log('Form is not valid');
         }
     }
 
@@ -61,6 +63,8 @@ export class FormValidator {
     }
 
     enableValidation() {
+        this._toggleSubmitButtonClass();
+        this._hideAllInputErrors();
         this._form.addEventListener('input', (event) => this._handleFormInput(event));
     }
 }

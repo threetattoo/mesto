@@ -50,13 +50,13 @@ export class Card {
 
     //создаем, заполняем контентом и возвращаем карточку
     renderItem() {
-        const galleryList = document.querySelector('.elements__list');
-
         this._galleryItem = this._createCard();
+        const cardImage = this._galleryItem.querySelector('.elements__image');
+        const cardTitle = this._galleryItem.querySelector('.elements__title');
+        cardImage.src = this._link;
+        cardImage.alt = this._name;
+        cardTitle.textContent = this._name;
         this._setEventListeners();
-        this._galleryItem.querySelector('.elements__image').src = this._link;
-        this._galleryItem.querySelector('.elements__image').alt = this._name;
-        this._galleryItem.querySelector('.elements__title').textContent = this._name;
 
         return this._galleryItem;
     }

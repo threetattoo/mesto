@@ -79,14 +79,12 @@ function addPictureHandler(evt) {
     evt.preventDefault();
     const addPictureCaption = popupAddContent.querySelector('#placename');
     const addPictureUrl = popupAddContent.querySelector('#picturelink');
-    const submitButton = pictureAddForm.querySelector('.popup__button');
-
     const item = { name: addPictureCaption.value, link: addPictureUrl.value };
     const card = new Card(item, '#gallery-item');
     addCard(card.renderItem());
     pictureAddForm.reset();
     closePopup(popupAddContent);
-    popupAddContentValidator._hideAllInputErrors();
+    popupAddContentValidator.enableValidation();
 };
 
 //закрытие попапа при нажатии кнопки escape
@@ -110,13 +108,15 @@ initialCards.forEach((item) => {
 
 editProfileButton.addEventListener('click', () => {
     openProfilePopup();
-    popupProfileValidator._hideAllInputErrors();
+    popupProfileValidator.enableValidation();
 });
 
 editProfileForm.addEventListener('submit', handleSubmitProfile);
 pictureAddForm.addEventListener('submit', addPictureHandler);
+
 pictureAddButton.addEventListener('click', function() {
     openPopup(popupAddContent);
+    popupAddContentValidator.enableValidation();
 });
 
 //обработка закрытия попапов при клике по оверлею и кнопке закрытия
@@ -131,9 +131,6 @@ popups.forEach((popup) => {
 //валидация форм попапов
 const popupProfileValidator = new FormValidator(popupFormConfig, popupProfile);
 const popupAddContentValidator = new FormValidator(popupFormConfig, popupAddContent);
-
-popupProfileValidator.enableValidation();
-popupAddContentValidator.enableValidation();
 
 import { Card } from './Card.js';
 import { FormValidator } from './FormValidator.js';
