@@ -1,61 +1,56 @@
-const initialCards = [{
-        name: 'Архыз',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-        name: 'Челябинская область',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-        name: 'Иваново',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-        name: 'Камчатка',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-        name: 'Холмогорский район',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-        name: 'Байкал',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+import {
+    initialCards,
+    popupFormConfig,
+    popupProfile,
+    editProfileButton,
+    profileName,
+    profileJob,
+    editProfileForm,
+    nameInput,
+    jobInput,
+    popupAddContent,
+    pictureAddButton,
+    pictureAddForm,
+    galleryList,
+    popups
+} from '../constants/constants.js'
+
+import Card from '../components/Card.js';
+import FormValidator from '../components/FormValidator.js';
+import Popup from '../components/Popup.js';
+import PopupWithForm from '../components/PopupWithForm.js';
+import PopupWithImage from '../components/PopupWithImage.js';
+import Section from '../components/Section.js';
+import UserInfo from '../components/UserInfo.js';
+
+//информация о пользователе
+const user = new UserInfo({
+    'userName': profileName,
+    'userJob': profileJob
+});
+
+
+const profilePopup = new PopupWithForm('.popup_type_profile', {
+    'handleFormSubmit': (info) => {
+        //console.log(info);
+        user.setUserInfo(info.personname, info.personjob);
     }
-];
-
-const popupFormConfig = {
-    formSelector: '.popup__form',
-    inputSelector: '.popup__input',
-    submitButtonSelector: '.popup__button',
-    inactiveButtonClass: 'popup__button_disabled',
-    inputErrorClass: 'popup__input_type_error',
-    errorClass: 'popup__error_visible'
-};
-
-//попап редактирования профиля пользователя
-const popupProfile = document.querySelector('.popup_type_profile');
-const editProfileButton = document.querySelector('.profile__edit-button');
-const profileName = document.querySelector('.profile__name');
-const profileJob = document.querySelector('.profile__subtitle');
-const editProfileForm = document.querySelector('.popup__form_profile');
-const nameInput = editProfileForm.querySelector('#personname');
-const jobInput = editProfileForm.querySelector('#personjob');
-//попап добавления фотографий
-const popupAddContent = document.querySelector('.popup_type_add-content');
-const pictureAddButton = document.querySelector('.profile__add-button');
-const pictureAddForm = document.querySelector('.popup__form_place');
-//галерея
-const galleryList = document.querySelector('.elements__list');
-//попапы
-const popups = document.querySelectorAll('.popup');
+});
+profilePopup.setEventListeners();
 
 
+editProfileButton.addEventListener('click', () => {
+    const currentUserInfo = user.getUserInfo();
+    nameInput.value = currentUserInfo.name;
+    jobInput.value = currentUserInfo.job;
+    profilePopup.open();
+})
+
+/*
 export function openPopup(popup) {
     popup.classList.add('popup_opened');
     document.addEventListener('keyup', handleEscapeClose);
 }
-
 
 function closePopup(popup) {
     popup.classList.remove('popup_opened');
@@ -131,6 +126,4 @@ popups.forEach((popup) => {
 //валидация форм попапов
 const popupProfileValidator = new FormValidator(popupFormConfig, popupProfile);
 const popupAddContentValidator = new FormValidator(popupFormConfig, popupAddContent);
-
-import { Card } from './Card.js';
-import { FormValidator } from './FormValidator.js';
+*/
