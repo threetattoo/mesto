@@ -45,14 +45,14 @@ editProfileButton.addEventListener('click', () => {
 
 const popupWithImage = new PopupWithImage('.popup_type_view-image');
 
-function handleCardClick(name, link) {
-    popupWithImage.open(name, link);
-}
-
 const galleryCardsList = new Section({
     items: initialCards,
     renderer: (item) => {
-        const card = new Card(item, '#gallery-item', handleCardClick);
+        const card = new Card(item, '#gallery-item', {
+            handleCardClick: (name, link) => {
+                popupWithImage.open(name, link);
+            }
+        });
         const renderedCard = card.renderItem();
         galleryCardsList.addItem(renderedCard);
     }

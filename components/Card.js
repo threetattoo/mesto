@@ -1,5 +1,5 @@
 export default class Card {
-    constructor(item, cardSelector, handleCardClick) {
+    constructor(item, cardSelector, { handleCardClick }) {
         this._name = item.name;
         this._link = item.link;
         this._cardSelector = cardSelector;
@@ -26,7 +26,7 @@ export default class Card {
             .addEventListener('click', () => this._handleLike());
 
         this._galleryItem.querySelector('.elements__image')
-            .addEventListener('click', () => this._handleImageClick());
+            .addEventListener('click', () => this._handleCardClick(this._name, this._link));
     }
 
     //слушатели
@@ -37,12 +37,6 @@ export default class Card {
     _handleLike() {
         this._galleryItem.querySelector('.elements__like-button')
             .classList.toggle('elements__like-button_active');
-    }
-
-    _handleImageClick() {
-        this._galleryItem.addEventListener('click', () => {
-            this._handleCardClick(this._name, this._link);
-        });
     }
 
     //создаем, заполняем контентом и возвращаем карточку
