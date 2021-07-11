@@ -3,6 +3,7 @@ export default class Card {
         this._name = item.name;
         this._link = item.link;
         this._cardSelector = cardSelector;
+        this._handleCardClick = handleCardClick;
     }
 
     //генерация карточки

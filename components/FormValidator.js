@@ -8,7 +8,7 @@ export default class FormValidator {
         this._errorClass = config.errorClass;
 
         this._popup = currentPopup;
-        this._form = currentPopup.querySelector(config.formSelector);
+        this._form = this._popup.querySelector(this._formSelector);
     }
 
     //проходим по всем инпутам и сбрасываем ошибки

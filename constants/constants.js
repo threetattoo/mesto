@@ -34,7 +34,7 @@ export const popupFormConfig = {
 };
 
 //попап редактирования профиля пользователя
-export const popupProfile = document.querySelector('.popup_type_profile');
+export const popupProfileElement = document.querySelector('.popup_type_profile');
 export const editProfileButton = document.querySelector('.profile__edit-button');
 export const profileName = document.querySelector('.profile__name');
 export const profileJob = document.querySelector('.profile__subtitle');
@@ -42,10 +42,10 @@ export const editProfileForm = document.querySelector('.popup__form_profile');
 export const nameInput = editProfileForm.querySelector('#personname');
 export const jobInput = editProfileForm.querySelector('#personjob');
 //попап добавления фотографий
-export const popupAddContent = document.querySelector('.popup_type_add-content');
+export const popupAddContentElement = document.querySelector('.popup_type_add-content');
 export const pictureAddButton = document.querySelector('.profile__add-button');
 export const pictureAddForm = document.querySelector('.popup__form_place');
 //галерея
-export const galleryList = document.querySelector('.elements__list');
+export const galleryList = '.elements__list';
 //попапы
 export const popups = document.querySelectorAll('.popup');
