@@ -1,3 +1,5 @@
+import '../pages/index.css';
+
 import {
     initialCards,
     popupFormConfig,
@@ -63,7 +65,11 @@ galleryCardsList.renderItems();
 
 const popupAddContent = new PopupWithForm('.popup_type_add-content', {
     'handleFormSubmit': (item) => {
-        const card = new Card(item, '#gallery-item', handleCardClick);
+        const card = new Card(item, '#gallery-item', {
+            handleCardClick: (name, link) => {
+                popupWithImage.open(name, link);
+            }
+        });
         const renderedCard = card.renderItem();
         galleryCardsList.addItem(renderedCard);
     }

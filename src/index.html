@@ -5,17 +5,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./pages/index.css">
     <title>Mesto</title>
 </head>
 
 <body class="root">
     <header class="header">
-        <img src="./images/logo.svg" alt="Логотип сервиса 'Место'" class="header__logo">
+        <img src="<%=require('./images/logo.svg')%>" alt="Логотип сервиса 'Место'" class="header__logo">
     </header>
     <main>
         <section class="profile">
-            <img src="./images/image.jpg" alt="Аватар пользователя" class="profile__avatar">
+            <img src="<%=require('./images/image.jpg')%>" alt="Аватар пользователя" class="profile__avatar">
             <div class="profile__info">
                 <h1 class="profile__name">Жак-Ив Кусто</h1>
                 <button type="button" class="profile__edit-button" aria-label="Редактировать профиль"></button>
@@ -86,7 +85,6 @@
             <button type="button" class="elements__delete-button" aria-label="Удалить фотографию"></button>
         </li>
     </template>
-    <script type="module" src="scripts/index.js"></script>
 </body>
 
 </html>
