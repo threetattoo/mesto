@@ -36,27 +36,30 @@ const popupProfile = new PopupWithForm('.popup_type_profile', {
     }
 });
 
+popupProfile.setEventListeners();
+
 editProfileButton.addEventListener('click', () => {
     const currentUserInfo = user.getUserInfo();
     nameInput.value = currentUserInfo.name;
     jobInput.value = currentUserInfo.job;
+    popupProfileValidator.hideAllInputErrors();
     popupProfile.open();
-    popupProfile.setEventListeners();
-    popupProfileValidator.enableValidation();
 });
 
 const popupWithImage = new PopupWithImage('.popup_type_view-image');
 
+popupWithImage.setEventListeners();
+
+function createCard(item) {
+    const card = new Card(item, '#gallery-item', () => popupWithImage.open(item.name, item.link));
+    const renderedCard = card.renderItem();
+    galleryCardsList.addItem(renderedCard);
+}
+
 const galleryCardsList = new Section({
     items: initialCards,
     renderer: (item) => {
-        const card = new Card(item, '#gallery-item', {
-            handleCardClick: (name, link) => {
-                popupWithImage.open(name, link);
-            }
-        });
-        const renderedCard = card.renderItem();
-        galleryCardsList.addItem(renderedCard);
+        createCard(item);
     }
 }, galleryList);
 
@@ -64,23 +67,20 @@ const galleryCardsList = new Section({
 galleryCardsList.renderItems();
 
 const popupAddContent = new PopupWithForm('.popup_type_add-content', {
-    'handleFormSubmit': (item) => {
-        const card = new Card(item, '#gallery-item', {
-            handleCardClick: (name, link) => {
-                popupWithImage.open(name, link);
-            }
-        });
-        const renderedCard = card.renderItem();
-        galleryCardsList.addItem(renderedCard);
+    handleFormSubmit: (item) => {
+        createCard(item);
     }
 });
 
+popupAddContent.setEventListeners();
+
 pictureAddButton.addEventListener('click', () => {
+    popupAddContentValidator.hideAllInputErrors();
     popupAddContent.open();
-    popupAddContent.setEventListeners();
-    popupAddContentValidator.enableValidation();
 });
 
 //валидация форм попапов
 const popupProfileValidator = new FormValidator(popupFormConfig, popupProfileElement);
+popupProfileValidator.enableValidation();
 const popupAddContentValidator = new FormValidator(popupFormConfig, popupAddContentElement);
+popupAddContentValidator.enableValidation();

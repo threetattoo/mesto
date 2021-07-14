@@ -1,5 +1,5 @@
 export default class Card {
-    constructor(item, cardSelector, { handleCardClick }) {
+    constructor(item, cardSelector, handleCardClick) {
         this._name = item.name;
         this._link = item.link;
         this._cardSelector = cardSelector;
@@ -32,6 +32,7 @@ export default class Card {
     //слушатели
     _handleDelete() {
         this._galleryItem.remove();
+        this._galleryItem = null;
     }
 
     _handleLike() {

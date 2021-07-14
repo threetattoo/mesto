@@ -11,15 +11,6 @@ export default class FormValidator {
         this._form = this._popup.querySelector(this._formSelector);
     }
 
-    //проходим по всем инпутам и сбрасываем ошибки
-    _hideAllInputErrors() {
-        const inputs = Array.from(this._form.querySelectorAll(this._inputSelector));
-        inputs.forEach((input) => {
-            this._hideInputError(input);
-            this._toggleSubmitButtonClass();
-        });
-    }
-
     _handleFormInput(event) {
         const input = event.target;
         this._checkInputValidity(input);
@@ -40,11 +31,9 @@ export default class FormValidator {
         if (isFormValid) {
             submitButton.classList.remove(this._inactiveButtonClass);
             submitButton.removeAttribute('disabled');
-            console.log('Form is valid');
         } else {
             submitButton.classList.add(this._inactiveButtonClass);
             submitButton.setAttribute('disabled', 'disabled');
-            console.log('Form is not valid');
         }
     }
 
@@ -62,9 +51,31 @@ export default class FormValidator {
         showErrorElement.textContent = "";
     }
 
-    enableValidation() {
+    _setEventListeners() {
+        const inputs = Array.from(this._form.querySelectorAll(this._inputSelector));
+
+        inputs.forEach((input) => {
+            input.addEventListener('input', () => {
+                this._checkInputValidity(input);
+                this._toggleSubmitButtonClass();
+            });
+        });
+    }
+
+    //проходим по всем инпутам и сбрасываем ошибки
+    hideAllInputErrors() {
+        const inputs = Array.from(this._form.querySelectorAll(this._inputSelector));
+        inputs.forEach((input) => {
+            this._hideInputError(input);
+        });
         this._toggleSubmitButtonClass();
-        this._hideAllInputErrors();
-        this._form.addEventListener('input', (event) => this._handleFormInput(event));
+    }
+
+    enableValidation() {
+        this._form.addEventListener('submit', (event) => {
+            event.preventDefault();
+        });
+
+        this._setEventListeners();
     }
 }
