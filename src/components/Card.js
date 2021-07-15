@@ -23,7 +23,7 @@ export default class Card {
             .addEventListener('click', () => this._handleDelete());
 
         this._galleryItem.querySelector('.elements__like-button')
-            .addEventListener('click', () => this._handleLike());
+            .addEventListener('click', (event) => this._handleLike(event));
 
         this._galleryItem.querySelector('.elements__image')
             .addEventListener('click', () => this._handleCardClick(this._name, this._link));
@@ -35,9 +35,8 @@ export default class Card {
         this._galleryItem = null;
     }
 
-    _handleLike() {
-        this._galleryItem.querySelector('.elements__like-button')
-            .classList.toggle('elements__like-button_active');
+    _handleLike(event) {
+        event.target.classList.toggle('elements__like-button_active');
     }
 
     //создаем, заполняем контентом и возвращаем карточку

@@ -39,8 +39,8 @@ export const editProfileButton = document.querySelector('.profile__edit-button')
 export const profileName = document.querySelector('.profile__name');
 export const profileJob = document.querySelector('.profile__subtitle');
 export const editProfileForm = document.querySelector('.popup__form_profile');
-export const nameInput = editProfileForm.querySelector('#personname');
-export const jobInput = editProfileForm.querySelector('#personjob');
+export const nameInput = editProfileForm.querySelector('#person-name');
+export const jobInput = editProfileForm.querySelector('#person-job');
 //попап добавления фотографий
 export const popupAddContentElement = document.querySelector('.popup_type_add-content');
 export const pictureAddButton = document.querySelector('.profile__add-button');

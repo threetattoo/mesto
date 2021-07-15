@@ -31,8 +31,7 @@ const user = new UserInfo({
 //создаем попап профайла, передаем коллбэк handleFormSubmit
 const popupProfile = new PopupWithForm('.popup_type_profile', {
     'handleFormSubmit': (data) => {
-        //сonsole.log(data);
-        user.setUserInfo(data.personname, data.personjob);
+        user.setUserInfo(data.personName, data.personJob);
     }
 });
 

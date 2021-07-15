@@ -9,6 +9,7 @@ export default class FormValidator {
 
         this._popup = currentPopup;
         this._form = this._popup.querySelector(this._formSelector);
+        this._inputs = Array.from(this._form.querySelectorAll(this._inputSelector));
     }
 
     _handleFormInput(event) {
@@ -52,9 +53,7 @@ export default class FormValidator {
     }
 
     _setEventListeners() {
-        const inputs = Array.from(this._form.querySelectorAll(this._inputSelector));
-
-        inputs.forEach((input) => {
+        this._inputs.forEach((input) => {
             input.addEventListener('input', () => {
                 this._checkInputValidity(input);
                 this._toggleSubmitButtonClass();
@@ -64,8 +63,7 @@ export default class FormValidator {
 
     //проходим по всем инпутам и сбрасываем ошибки
     hideAllInputErrors() {
-        const inputs = Array.from(this._form.querySelectorAll(this._inputSelector));
-        inputs.forEach((input) => {
+        this._inputs.forEach((input) => {
             this._hideInputError(input);
         });
         this._toggleSubmitButtonClass();
