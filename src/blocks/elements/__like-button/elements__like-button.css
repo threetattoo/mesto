@@ -1,5 +1,5 @@
 .elements__like-button {
-    margin: 30px 20px 30px auto;
+    margin-bottom: 3px;
     width: 22px;
     height: 19px;
     border: 0;
@@ -7,7 +7,6 @@
     background-color: #ffffff;
     transition: opacity 0.4s linear;
     cursor: pointer;
-    grid-area: likebutton;
 }
 
 .elements__like-button:hover {

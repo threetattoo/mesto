@@ -8,5 +8,5 @@
     display: grid;
     grid-template-rows: min-content 1fr;
     grid-template-columns: 1fr min-content;
-    grid-template-areas: "image image" "caption likebutton";
+    grid-template-areas: "image image" "caption likecontainer";
 }
