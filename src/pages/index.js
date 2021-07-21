@@ -11,9 +11,12 @@ import {
     pictureAddButton,
     galleryList,
     popupProfileElement,
-    popupAddContentElement
+    popupAddContentElement,
+    baseUrl,
+    token
 } from '../constants/constants.js'
 
+import Api from '../components/Api.js';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
 import Popup from '../components/Popup.js';
@@ -62,7 +65,6 @@ const galleryCardsList = new Section({
     }
 }, galleryList);
 
-//console.log(galleryCardsList);
 galleryCardsList.renderItems();
 
 const popupAddContent = new PopupWithForm('.popup_type_add-content', {
@@ -83,3 +85,24 @@ const popupProfileValidator = new FormValidator(popupFormConfig, popupProfileEle
 popupProfileValidator.enableValidation();
 const popupAddContentValidator = new FormValidator(popupFormConfig, popupAddContentElement);
 popupAddContentValidator.enableValidation();
+
+const api = new Api({
+    baseUrl,
+    token
+});
+
+api.getInitialCards();
+/*
+fetch('https://mesto.nomoreparties.co/v1/cohort-26/cards', {
+        headers: {
+            authorization: '6e25370a-d860-45cc-8100-dac5b577cde2'
+        }
+    })
+    .then(res => res.json())
+    .then((result) => {
+        console.log(result);
+    })
+    .catch((err) => {
+        console.log(`Ошибка - ${err.status}`);
+    });
+*/

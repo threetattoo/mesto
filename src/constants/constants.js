@@ -49,3 +49,5 @@ export const pictureAddForm = document.querySelector('.popup__form_place');
 export const galleryList = '.elements__list';
 //попапы
 export const popups = document.querySelectorAll('.popup');
+export const baseUrl = 'https://mesto.nomoreparties.co/v1/cohort-26';
+export const token = '6e25370a-d860-45cc-8100-dac5b577cde2';
