@@ -57,7 +57,7 @@ export default class Api {
     }
 
     deleteCard(cardId) {
-        return fetch(`${this.baseUrl}/cards/${cardId}`, {
+        return fetch(`${this._baseUrl}/cards/${cardId}`, {
                 method: 'DELETE',
                 headers: {
                     authorization: `${this._token}`,
@@ -69,7 +69,7 @@ export default class Api {
     }
 
     likeCard(cardId) {
-        return fetch(`${this.baseUrl}/cards/likes/${cardId}`, {
+        return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
                 method: 'PUT',
                 headers: {
                     authorization: `${this._token}`,
@@ -81,7 +81,7 @@ export default class Api {
     }
 
     dislikeCard(cardId) {
-        return fetch(`${this.baseUrl}/cards/likes/${cardId}`, {
+        return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
                 method: 'DELETE',
                 headers: {
                     authorization: `${this._token}`,
@@ -93,7 +93,7 @@ export default class Api {
     }
 
     changeUserAvatar(avatarUrl) {
-        return fetch(`${this.baseUrl}/users/me/avatar`, {
+        return fetch(`${this._baseUrl}/users/me/avatar`, {
                 method: 'PATCH',
                 headers: {
                     authorization: `${this._token}`,

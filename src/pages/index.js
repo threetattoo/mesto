@@ -6,6 +6,9 @@ import {
     editProfileButton,
     profileName,
     profileJob,
+    profileAvatar,
+    popupEditAvatarElement,
+    editAvatarButton,
     nameInput,
     jobInput,
     pictureAddButton,
@@ -35,6 +38,12 @@ const user = new UserInfo({
 const popupProfile = new PopupWithForm('.popup_type_profile', {
     'handleFormSubmit': (data) => {
         user.setUserInfo(data.personName, data.personJob);
+        popupProfile.setNewButtonText('Сохранение...');
+        api.changeUserInfo(data.personName, data.personJob)
+            .finally(() => {
+                popupProfile.close();
+                popupProfile.returnDefaultButtonText();
+            });
     }
 });
 
@@ -46,6 +55,24 @@ editProfileButton.addEventListener('click', () => {
     jobInput.value = currentUserInfo.job;
     popupProfileValidator.hideAllInputErrors();
     popupProfile.open();
+});
+
+const editAvatarPopup = new PopupWithForm('.popup_type_edit-avatar', {
+    'handleFormSubmit': (data) => {
+        editAvatarPopup.setNewButtonText('Сохранение...');
+        api.changeUserAvatar(data.avatarLink)
+            .finally(() => {
+                editAvatarPopup.close();
+                editAvatarPopup.returnDefaultButtonText();
+            });
+    }
+});
+
+editAvatarPopup.setEventListeners();
+
+editAvatarButton.addEventListener('click', () => {
+    editAvatarPopupValidator.hideAllInputErrors();
+    editAvatarPopup.open();
 });
 
 const popupWithImage = new PopupWithImage('.popup_type_view-image');
@@ -70,6 +97,7 @@ galleryCardsList.renderItems();
 const popupAddContent = new PopupWithForm('.popup_type_add-content', {
     handleFormSubmit: (item) => {
         createCard(item);
+        popupAddContent.close();
     }
 });
 
@@ -85,24 +113,24 @@ const popupProfileValidator = new FormValidator(popupFormConfig, popupProfileEle
 popupProfileValidator.enableValidation();
 const popupAddContentValidator = new FormValidator(popupFormConfig, popupAddContentElement);
 popupAddContentValidator.enableValidation();
+const editAvatarPopupValidator = new FormValidator(popupFormConfig, popupEditAvatarElement);
+editAvatarPopupValidator.enableValidation();
 
 const api = new Api({
     baseUrl,
     token
 });
 
-api.getInitialCards();
-/*
-fetch('https://mesto.nomoreparties.co/v1/cohort-26/cards', {
-        headers: {
-            authorization: '6e25370a-d860-45cc-8100-dac5b577cde2'
-        }
-    })
-    .then(res => res.json())
-    .then((result) => {
-        console.log(result);
-    })
-    .catch((err) => {
-        console.log(`Ошибка - ${err.status}`);
-    });
-*/
+//const cards = api.getInitialCards();
+
+//Получаем информацию о пользователе
+api.getUserInfo().then((data => {
+    profileName.textContent = data.name;
+    profileJob.textContent = data.about;
+    profileAvatar.src = data.avatar;
+}));
+
+//Получаем карточки с сервера
+api.getInitialCards().then((cards) => {
+    console.log(cards);
+});
