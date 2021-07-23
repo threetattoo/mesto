@@ -24,13 +24,10 @@ export default class Card {
         return galleryItem;
     }
 
-    /*
-    //слушатели
-    _handleDelete() {
-        this._galleryItem.remove();
-        this._galleryItem = null;
+    //удаление карточки
+    deleteCard() {
+        this._deleteButton.closest('.elements__item').remove();
     }
-    */
 
     //выводим лайки у карточки
     showLikesCounter() {
