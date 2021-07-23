@@ -1,7 +1,7 @@
 import '../pages/index.css';
 
 import {
-    initialCards,
+    personalId,
     popupFormConfig,
     editProfileButton,
     profileName,
@@ -13,6 +13,7 @@ import {
     jobInput,
     pictureAddButton,
     galleryList,
+    gallery,
     popupProfileElement,
     popupAddContentElement,
     baseUrl,
@@ -79,25 +80,36 @@ const popupWithImage = new PopupWithImage('.popup_type_view-image');
 
 popupWithImage.setEventListeners();
 
-function createCard(item) {
-    const card = new Card(item, '#gallery-item', () => popupWithImage.open(item.name, item.link));
-    const renderedCard = card.renderItem();
-    galleryCardsList.addItem(renderedCard);
-}
-
-const galleryCardsList = new Section({
-    items: initialCards,
-    renderer: (item) => {
-        createCard(item);
-    }
-}, galleryList);
-
-galleryCardsList.renderItems();
-
 const popupAddContent = new PopupWithForm('.popup_type_add-content', {
     handleFormSubmit: (item) => {
-        createCard(item);
-        popupAddContent.close();
+        popupAddContent.setNewButtonText('Сохранение...');
+        api.addNewCard(item.name, item.link)
+            .then((card) => {
+                console.log(card);
+            })
+            .finally(() => {
+                const card = new Card(item, '#gallery-item', personalId, {
+                    'handleCardClick': () => {
+                        popupWithImage.open(item.name, item.link);
+                    },
+                    'handleLikeClick': () => {
+                        const likeStatus = card.didUserLikedCard();
+                        const apiRequest = likeStatus ? api.dislikeCard(card.getCardId()) : api.likeCard(card.getCardId());
+                        apiRequest.then((data) => {
+                            card.setActualLikes(data.likes);
+                            card.showLikesCounter();
+                            card.setLikeStatus();
+                        })
+                    },
+                    'handleDeleteCard': () => {
+
+                    }
+                });
+                const renderedCard = card.renderItem();
+                gallery.prepend(renderedCard);
+                popupAddContent.close();
+                popupAddContent.returnDefaultButtonText();
+            });
     }
 });
 
@@ -116,12 +128,11 @@ popupAddContentValidator.enableValidation();
 const editAvatarPopupValidator = new FormValidator(popupFormConfig, popupEditAvatarElement);
 editAvatarPopupValidator.enableValidation();
 
+//создаем объект api класса
 const api = new Api({
     baseUrl,
     token
 });
-
-//const cards = api.getInitialCards();
 
 //Получаем информацию о пользователе
 api.getUserInfo().then((data => {
@@ -131,6 +142,35 @@ api.getUserInfo().then((data => {
 }));
 
 //Получаем карточки с сервера
-api.getInitialCards().then((cards) => {
-    console.log(cards);
+api.getInitialCards().then((initialCards) => {
+    //console.log(initialCards);
+    renderInitialCards(initialCards);
 });
+
+//функция рендеринга карточек с сервера
+function renderInitialCards(initialCards) {
+    const galleryCardsList = new Section({
+        items: initialCards,
+        renderer: (item) => {
+            const card = new Card(item, '#gallery-item', personalId, {
+                'handleCardClick': () => {
+                    popupWithImage.open(item.name, item.link);
+                },
+                'handleLikeClick': () => {
+                    const likeStatus = card.didUserLikedCard();
+                    const apiRequest = likeStatus ? api.dislikeCard(card.getCardId()) : api.likeCard(card.getCardId());
+                    apiRequest.then((data) => {
+                        card.setActualLikes(data.likes);
+                        card.showLikesCounter();
+                        card.setLikeStatus();
+                    })
+                }
+            });
+            const renderedCard = card.renderItem();
+            galleryCardsList.addItem(renderedCard);
+        }
+    }, galleryList);
+    galleryCardsList.renderItems();
+}
+
+//api.deleteCard('60f94b29f093050054c1dd9a');
