@@ -28,13 +28,7 @@ export default class PopupWithForm extends Popup {
         this._form.addEventListener('submit', this._formSumbit);
     }
 
-    removeEventListeners() {
-        super.removeEventListeners();
-        this._form.removeEventListener('submit', this._formSumbit);
-    }
-
     setNewButtonText(newButtonText) {
-        console.log(this._submitButtonDefaultText);
         this._submitButton.textContent = newButtonText;
     }
 

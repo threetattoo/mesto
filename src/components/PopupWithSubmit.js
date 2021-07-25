@@ -27,11 +27,6 @@ export default class PopupWithSubmit extends Popup {
         this._form.addEventListener('submit', this._formSumbit);
     }
 
-    removeEventListeners() {
-        super.removeEventListeners();
-        this._form.removeEventListener('submit', this._formSumbit);
-    }
-
     //при открытии попапа принимаем объект текущей карточки
     open(card) {
         this._card = card;

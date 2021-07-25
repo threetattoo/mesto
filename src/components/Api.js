@@ -10,8 +10,7 @@ export default class Api {
                     authorization: `${this._token}`
                 }
             })
-            .then(response => this._checkApiRequest(response))
-            .catch(error => this._handleApiError(error));
+            .then(response => this._checkApiRequest(response));
     }
 
     getInitialCards() {
@@ -20,8 +19,7 @@ export default class Api {
                     authorization: `${this._token}`
                 }
             })
-            .then(response => this._checkApiRequest(response))
-            .catch(error => this._handleApiError(error));
+            .then(response => this._checkApiRequest(response));
     }
 
     changeUserInfo(name, about) {
@@ -36,8 +34,7 @@ export default class Api {
                     about: about
                 })
             })
-            .then(response => this._checkApiRequest(response))
-            .catch(error => this._handleApiError(error));
+            .then(response => this._checkApiRequest(response));
     }
 
     addNewCard(name, link) {
@@ -52,8 +49,7 @@ export default class Api {
                     link: link
                 })
             })
-            .then(response => this._checkApiRequest(response))
-            .catch(error => this._handleApiError(error));
+            .then(response => this._checkApiRequest(response));
     }
 
     deleteCard(cardId) {
@@ -64,8 +60,7 @@ export default class Api {
                     'Content-Type': 'application/json'
                 }
             })
-            .then(response => this._checkApiRequest(response))
-            .catch(error => this._handleApiError(error));
+            .then(response => this._checkApiRequest(response));
     }
 
     likeCard(cardId) {
@@ -76,8 +71,7 @@ export default class Api {
                     'Content-Type': 'application/json'
                 }
             })
-            .then(response => this._checkApiRequest(response))
-            .catch(error => this._handleApiError(error));
+            .then(response => this._checkApiRequest(response));
     }
 
     dislikeCard(cardId) {
@@ -88,8 +82,7 @@ export default class Api {
                     'Content-Type': 'application/json'
                 }
             })
-            .then(response => this._checkApiRequest(response))
-            .catch(error => this._handleApiError(error));
+            .then(response => this._checkApiRequest(response));
     }
 
     changeUserAvatar(avatarUrl) {
@@ -103,8 +96,7 @@ export default class Api {
                     avatar: avatarUrl
                 })
             })
-            .then(response => this._checkApiRequest(response))
-            .catch(error => this._handleApiError(error));
+            .then(response => this._checkApiRequest(response));
     }
 
     _checkApiRequest(response) {
@@ -112,9 +104,5 @@ export default class Api {
             return response.json();
         }
         return Promise.reject(`Ошибка запроса: ${response.status}`);
-    }
-
-    _handleApiError(error) {
-        console.log(error);
     }
 }
