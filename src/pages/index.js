@@ -1,7 +1,6 @@
 import '../pages/index.css';
 
 import {
-    //personalId,
     popupFormConfig,
     editProfileButton,
     profileName,

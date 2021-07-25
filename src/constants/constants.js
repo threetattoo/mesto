@@ -7,7 +7,6 @@ export const popupFormConfig = {
     errorClass: 'popup__error_visible'
 };
 
-export const personalId = '5d507baa9cf66b222da492d9';
 //попап редактирования профиля пользователя
 export const popupProfileElement = document.querySelector('.popup_type_profile');
 export const editProfileButton = document.querySelector('.profile__edit-button');
