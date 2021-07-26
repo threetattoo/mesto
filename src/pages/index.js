@@ -41,8 +41,7 @@ const popupProfile = new PopupWithForm('.popup_type_profile', {
     'handleFormSubmit': (data) => {
         api.changeUserInfo(data.personName, data.personJob)
             .then((data) => {
-                const userInfo = user.getUserInfo(data);
-                user.setUserInfo(userInfo);
+                user.setUserInfo(data);
                 popupProfile.setNewButtonText('Сохранение...');
                 popupProfile.close();
             })
@@ -62,17 +61,11 @@ function handleApiError(error) {
 
 //навешиваем слушатель на кнопку редактирования профайла
 editProfileButton.addEventListener('click', () => {
-    api.getUserInfo()
-        .then((data) => {
-            const currentUserInfo = user.getUserInfo(data);
-            nameInput.value = currentUserInfo.name;
-            jobInput.value = currentUserInfo.about;
-            popupProfile.open();
-        })
-        .catch(error => handleApiError(error))
-        .finally(() => {
-            popupProfileValidator.hideAllInputErrors();
-        })
+    const currentUserInfo = user.getUserInfo();
+    nameInput.value = currentUserInfo.name;
+    jobInput.value = currentUserInfo.job;
+    popupProfile.open();
+    popupProfileValidator.hideAllInputErrors();
 });
 
 //создаем попап редактирования аватара
@@ -80,8 +73,7 @@ const editAvatarPopup = new PopupWithForm('.popup_type_edit-avatar', {
     'handleFormSubmit': (data) => {
         api.changeUserAvatar(data.avatarLink)
             .then((data) => {
-                const userInfo = user.getUserInfo(data);
-                user.setUserInfo(userInfo);
+                user.setUserInfo(data);
                 editAvatarPopup.setNewButtonText('Сохранение...');
                 editAvatarPopup.close();
             })
@@ -110,7 +102,6 @@ const popupAddContent = new PopupWithForm('.popup_type_add-content', {
         popupAddContent.setNewButtonText('Сохранение...');
         api.addNewCard(item.name, item.link)
             .then((item) => {
-                console.log(item);
                 galleryCardsList.renderItem(item, item.owner._id);
                 popupAddContent.close();
             })
@@ -175,10 +166,11 @@ function createCard(item, personalId) {
             const likeStatus = card.didUserLikedCard();
             const apiRequest = likeStatus ? api.dislikeCard(card.getCardId()) : api.likeCard(card.getCardId());
             apiRequest.then((data) => {
-                card.setActualLikes(data.likes);
-                card.showLikesCounter();
-                card.setLikeStatus();
-            })
+                    card.setActualLikes(data.likes);
+                    card.showLikesCounter();
+                    card.setLikeStatus();
+                })
+                .catch(error => handleApiError(error))
         },
         'handleDeleteCard': () => {
             popupWithSubmit.open(card);
@@ -191,7 +183,7 @@ function createCard(item, personalId) {
 Promise.all([api.getUserInfo(), api.getInitialCards()])
     .then(([userInfo, initialCards]) => {
         user.setUserInfo(userInfo);
-        const personalId = user.getUserInfo(userInfo).id;
+        const personalId = userInfo._id;
         initialCards.forEach((item) => {
             galleryCardsList.renderItem(item, personalId);
         })
